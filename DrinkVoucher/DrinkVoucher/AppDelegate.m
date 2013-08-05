@@ -10,7 +10,7 @@
 
 #import "SplashViewController.h"
 #import "Reachability.h"
-
+#import <Crashlytics/Crashlytics.h>
 
 @implementation AppDelegate
 
@@ -26,6 +26,7 @@
     
     //NSLog(@"Local Time Zone %@",[[NSTimeZone localTimeZone] name]);
     //NSLog(@"System Time Zone %@",[[NSTimeZone systemTimeZone] name]);
+    [Crashlytics startWithAPIKey:@"b53fcf08df9b183b382153735d57a10862fc5348"];
     
     [self logWithString:@"APPLICATION LAUNCHING"];
    
