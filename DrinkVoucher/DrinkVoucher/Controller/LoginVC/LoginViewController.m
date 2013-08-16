@@ -46,7 +46,7 @@ static NSString* kAppId = @"164117317078099";
 {
     appDelegate=(AppDelegate *)[[UIApplication sharedApplication]delegate];
     
-    //[appDelegate logWithString:@"LOGIN SCREEN"];
+    [appDelegate logWithString:@"LOGIN SCREEN"];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accountChanged:)name:ACAccountStoreDidChangeNotification object:nil];
 
@@ -268,7 +268,7 @@ static NSString* kAppId = @"164117317078099";
     }
     ////NSLog(@"result : %@",result);
     
-   // [appDelegate logWithString:[NSString stringWithFormat:@"Facebook user detail :\n %@",result]];
+   [appDelegate logWithString:[NSString stringWithFormat:@"Facebook user detail :\n %@",result]];
     
     // When we ask for user infor this will happen.
     if ([result isKindOfClass:[NSDictionary class]]){
@@ -397,7 +397,7 @@ static NSString* kAppId = @"164117317078099";
     
     //NSLog(@"jsonString user: %@",jsonString);
     
-    //[appDelegate logWithString:[NSString stringWithFormat:@"REGISTER (http://itisonth.w13.wh-2.com/WS/register) > request : %@",jsonString]];
+    [appDelegate logWithString:[NSString stringWithFormat:@"REGISTER (http://itisonth.w13.wh-2.com/WS/register) > request : %@",jsonString]];
     
     NSData* requestData =[jsonString dataUsingEncoding:NSUTF8StringEncoding] ; // [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:nil];
     
@@ -426,7 +426,7 @@ static NSString* kAppId = @"164117317078099";
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
     
     NSLog(@"%@",[error description]);
-   // [appDelegate logWithString:[NSString stringWithFormat:@"REGISTER > request didFailWithError : %@",[error description]]];
+   [appDelegate logWithString:[NSString stringWithFormat:@"REGISTER > request didFailWithError : %@",[error description]]];
     
 	//[connection release];
 	responseData = nil;
@@ -447,7 +447,7 @@ static NSString* kAppId = @"164117317078099";
     
     NSMutableDictionary *temp=[responseString JSONValue];
     //NSLog(@"temp : %@",temp);
-    //[appDelegate logWithString:[NSString stringWithFormat:@"REGISTER > response : %@",responseString]];
+    [appDelegate logWithString:[NSString stringWithFormat:@"REGISTER > response : %@",responseString]];
     
     if (temp) {
         
@@ -598,7 +598,7 @@ static NSString* kAppId = @"164117317078099";
                  self.facebookAccount = [accounts lastObject];
                  //NSLog(@"facebook account =%@",self.facebookAccount);
                  
-                // [appDelegate logWithString:@"Facebook account Authenticated"];
+                [appDelegate logWithString:@"Facebook account Authenticated"];
                  
                  [self get];
              } else {
@@ -606,7 +606,7 @@ static NSString* kAppId = @"164117317078099";
                  //NSLog(@"error getting permission %@",e);
                  //AppDelegate *appDel=(AppDelegate*)[[UIApplication sharedApplication] delegate];
                  
-                // [appDelegate logWithString:@"Open Facebook dialog IOS > 6"];
+                 [appDelegate logWithString:@"Open Facebook dialog IOS > 6"];
                  
                  if ([appDelegate isNetWorkAvailable]) {
                      //  [self performSelector:@selector(facebookLogin) withObject:nil afterDelay:0.5];
@@ -627,7 +627,7 @@ static NSString* kAppId = @"164117317078099";
     {
         AppDelegate *appDel=(AppDelegate*)[[UIApplication sharedApplication] delegate];
         
-      //  [appDelegate logWithString:@"Open Facebook dialog IOS < 6"];
+        [appDelegate logWithString:@"Open Facebook dialog IOS < 6"];
         
         if ([appDel isNetWorkAvailable]) {
             [self performSelector:@selector(facebookLogin) withObject:nil afterDelay:0.5];
@@ -663,7 +663,7 @@ static NSString* kAppId = @"164117317078099";
             
             NSLog(@"Dictionary contains: %@", list );
             
-            //[appDelegate logWithString:[NSString stringWithFormat:@"Facebook user detail :\n %@",list]];
+            [appDelegate logWithString:[NSString stringWithFormat:@"Facebook user detail :\n %@",list]];
             
             
             if([list objectForKey:@"error"]!=nil)

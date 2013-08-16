@@ -10,7 +10,7 @@
 
 #import "SplashViewController.h"
 #import "Reachability.h"
-
+#import <Crashlytics/Crashlytics.h>
 
 @implementation AppDelegate
 
@@ -27,7 +27,9 @@
     //NSLog(@"Local Time Zone %@",[[NSTimeZone localTimeZone] name]);
     //NSLog(@"System Time Zone %@",[[NSTimeZone systemTimeZone] name]);
     
-    //[self logWithString:@"APPLICATION LAUNCHING"];
+    [self logWithString:@"APPLICATION LAUNCHING"];
+    
+    [Crashlytics startWithAPIKey:@"b53fcf08df9b183b382153735d57a10862fc5348"];
    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
@@ -58,7 +60,7 @@
                 //NSLog(@"UserBar Detail : %@",dictPlist);
                 
                 //[NSString stringWithFormat:@"UserBar Detail : %@",dictPlist];
-                //[self logWithString:[NSString stringWithFormat:@"UserBar Detail : %@",dictPlist]];
+                [self logWithString:[NSString stringWithFormat:@"UserBar Detail : %@",dictPlist]];
             }
             
             NSDate *currentDateTime = [NSDate date];
@@ -88,7 +90,7 @@
             
             //NSLog(@"jsonString : %@",jsonString);
             
-            //[self logWithString:[NSString stringWithFormat:@"VOUCHER_ACTIVE (http://itisonth.w13.wh-2.com/WS/IsVocherActive) > request : %@",jsonString]];
+            [self logWithString:[NSString stringWithFormat:@"VOUCHER_ACTIVE (http://itisonth.w13.wh-2.com/WS/IsVocherActive) > request : %@",jsonString]];
             
             NSData* requestData =[jsonString dataUsingEncoding:NSUTF8StringEncoding] ; // [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:nil];
             
@@ -114,7 +116,7 @@
                 
                 //NSLog(@"temp : %@",temp);
                 
-                //[self logWithString:[NSString stringWithFormat:@"VOUCHER_ACTIVE > response : %@",dictPlist]];
+                [self logWithString:[NSString stringWithFormat:@"VOUCHER_ACTIVE > response : %@",dictPlist]];
                 
                 self.isCurrentVoucherActive=[[temp objectForKey:@"IsVocherActive"] integerValue];
                 //NSLog(@"self.isCurrentVoucherActive : %d",self.isCurrentVoucherActive);
@@ -270,7 +272,7 @@
     
     //NSLog(@"temp TimeZone: %@",temp);
     
-     //[self logWithString:[NSString stringWithFormat:@"User TimeZone : %@",responseString]];
+     [self logWithString:[NSString stringWithFormat:@"User TimeZone : %@",responseString]];
     
     NSString *strTimeZone = [temp objectForKey:@"timeZoneId"];
     
@@ -283,7 +285,7 @@
     NSString *strReturn= [formatter stringFromDate:now];
     
     //NSLog(@"strReturn : %@",strReturn);
-    //[self logWithString:[NSString stringWithFormat:@"dateFromLatLong return parameter : %@",strReturn]];
+    [self logWithString:[NSString stringWithFormat:@"dateFromLatLong return parameter : %@",strReturn]];
 
     return strReturn;
 }
@@ -306,30 +308,30 @@
 #pragma mark Create log file
 - (void)logWithString:(NSString *)string
 {
-//    
-//    NSDate *now = [NSDate date];
-//    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-//    [formatter setDateFormat:@"dd-MMM-yyyy hh:mm"];
-//    
-//    
-//    // Create the file
-//    NSError *error;
-//    
-//    // Directory
-//    NSString *documentsDirectory = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
-//    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:@"log.txt"];
-//    
-//    // Get the file contents
-//    NSData *localData = [NSData dataWithContentsOfFile:filePath];
-//    if (localData) {
-//        NSString *logString = [[NSString alloc] initWithData:localData encoding:NSUTF8StringEncoding];
-//        string = [logString stringByAppendingFormat:@"\n At time %@\n %@\n", [formatter stringFromDate:now],string];
-//        //[logString release];
-//    }
-//    
-//    // Write to the file
-//    [string writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
-//    //[formatter release];
+    
+    NSDate *now = [NSDate date];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"dd-MMM-yyyy hh:mm"];
+    
+    
+    // Create the file
+    NSError *error;
+    
+    // Directory
+    NSString *documentsDirectory = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
+    NSString *filePath = [documentsDirectory stringByAppendingPathComponent:@"log.txt"];
+    
+    // Get the file contents
+    NSData *localData = [NSData dataWithContentsOfFile:filePath];
+    if (localData) {
+        NSString *logString = [[NSString alloc] initWithData:localData encoding:NSUTF8StringEncoding];
+        string = [logString stringByAppendingFormat:@"\n At time %@\n %@\n", [formatter stringFromDate:now],string];
+        //[logString release];
+    }
+    
+    // Write to the file
+    [string writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
+   // [formatter release];
     
 }
 

@@ -75,7 +75,7 @@
     
     if ([strStatus isEqualToString:@"New"])
     {
-        //[appDelegate logWithString:@"New Voucher"];
+        [appDelegate logWithString:@"New Voucher"];
         
         [btnGetdrink setTitle:@"drinking_button" forState:UIControlStateDisabled];
         [btnGetdrink setImage:[UIImage imageNamed:@"ge_drinksontheHouse.png"] forState:UIControlStateNormal];
@@ -86,7 +86,7 @@
     }
     else if ([strStatus isEqualToString:@"Current"])
     {
-        //[appDelegate logWithString:@"Current Voucher"];
+        [appDelegate logWithString:@"Current Voucher"];
         
         if (appDelegate.isCurrentVoucherActive == 1) {
             
@@ -133,7 +133,7 @@
             
         }else{
             
-            //[appDelegate logWithString:@"New Voucher >> previous unused voucher is expired"];
+            [appDelegate logWithString:@"New Voucher >> previous unused voucher is expired"];
             
             [btnGetdrink setTitle:@"drinking_button" forState:UIControlStateDisabled];
             [btnGetdrink setImage:[UIImage imageNamed:@"ge_drinksontheHouse.png"] forState:UIControlStateNormal];
@@ -144,7 +144,7 @@
     }
     else if ([strStatus isEqualToString:@"Redeemed"])
     {
-       // [appDelegate logWithString:@"Redeemed Voucher"];
+       [appDelegate logWithString:@"Redeemed Voucher"];
         
         self.lblRedeemedDate.hidden=NO;
         
@@ -183,7 +183,7 @@
     
     appDelegate=(AppDelegate *)[[UIApplication sharedApplication] delegate];
     
-   // [appDelegate logWithString:@"HOME SCREEN"];
+   [appDelegate logWithString:@"HOME SCREEN"];
     
     if ([[UIScreen mainScreen] bounds].size.height == 568) { 
         [imgBack setImage:[UIImage imageNamed:@"getdriking_screen_new_5.png"]];
@@ -394,7 +394,7 @@
 
 -(void) execMethod:(NSMutableDictionary *)dic{
     
-  // [appDelegate logWithString:[NSString stringWithFormat:@"User Lat : %@ \n User Long : %@",self.currentLatitude,self.currentLongitude]];
+   [appDelegate logWithString:[NSString stringWithFormat:@"User Lat : %@ \n User Long : %@",self.currentLatitude,self.currentLongitude]];
     
     NSURL * url = [NSURL URLWithString:GETBARDETAIL];
     
@@ -403,7 +403,7 @@
 
     NSString *jsonString = [dic JSONRepresentation];
     
-   // [appDelegate logWithString:[NSString stringWithFormat:@"GETBARDETAIL (http://itisonth.w13.wh-2.com/WS/GetBarDetail) > request : %@",jsonString]];
+    [appDelegate logWithString:[NSString stringWithFormat:@"GETBARDETAIL (http://itisonth.w13.wh-2.com/WS/GetBarDetail) > request : %@",jsonString]];
     
     //NSLog(@"jsonString : %@",jsonString);
     
@@ -424,7 +424,7 @@
 }
 -(void) execMethodUpdate:(NSMutableDictionary *)dic{
     
- //   [appDelegate logWithString:[NSString stringWithFormat:@"User Lat : %@ \n User Long : %@",self.currentLatitude,self.currentLongitude]];
+    [appDelegate logWithString:[NSString stringWithFormat:@"User Lat : %@ \n User Long : %@",self.currentLatitude,self.currentLongitude]];
     
     NSURL * url = [NSURL URLWithString:UPDATE_DATESEEN_VOUCHER];
     
@@ -433,7 +433,7 @@
     NSString *jsonString = [dic JSONRepresentation];
     
     //NSLog(@"jsonString : %@",jsonString);
-    //[appDelegate logWithString:[NSString stringWithFormat:@"UPDATE_DATESEEN_VOUCHER (http://itisonth.w13.wh-2.com/WS/updateDateseen_voucher) > request : %@",jsonString]];
+    [appDelegate logWithString:[NSString stringWithFormat:@"UPDATE_DATESEEN_VOUCHER (http://itisonth.w13.wh-2.com/WS/updateDateseen_voucher) > request : %@",jsonString]];
     
     NSData* requestData =[jsonString dataUsingEncoding:NSUTF8StringEncoding] ; // [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:nil];
     
@@ -466,7 +466,7 @@
     //NSLog(@"error==%@",[error description]);
 	//[connection release];
     
-    //[appDelegate logWithString:[NSString stringWithFormat:@"request didFailWithError : %@",[error description]]];
+    [appDelegate logWithString:[NSString stringWithFormat:@"request didFailWithError : %@",[error description]]];
     
 	responseData = nil;
     
@@ -489,7 +489,7 @@
         //NSLog(@"Update ssen voucher call");
         MethodUpdateCall=NO;
         
-        //[appDelegate logWithString:@"UPDATE_DATESEEN_VOUCHER > sucess"];
+        [appDelegate logWithString:@"UPDATE_DATESEEN_VOUCHER > sucess"];
         
         BarDetailViewController *obj_batDetailUpdate=[[BarDetailViewController alloc] initWithNibName:@"BarDetailViewController" bundle:nil];
         [self.navigationController pushViewController:obj_batDetailUpdate animated:YES];
@@ -500,7 +500,7 @@
     }
     
     NSString *responseString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-    //[appDelegate logWithString:[NSString stringWithFormat:@"GETBARDETAIL response : %@",responseString]];
+    [appDelegate logWithString:[NSString stringWithFormat:@"GETBARDETAIL response : %@",responseString]];
     NSMutableDictionary *tempDic =[responseString JSONValue];
     //NSLog(@"tempDic %@",tempDic);
     //[responseString release];
