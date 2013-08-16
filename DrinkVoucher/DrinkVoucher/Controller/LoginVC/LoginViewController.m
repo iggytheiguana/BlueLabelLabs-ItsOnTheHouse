@@ -46,7 +46,7 @@ static NSString* kAppId = @"164117317078099";
 {
     appDelegate=(AppDelegate *)[[UIApplication sharedApplication]delegate];
     
-    [appDelegate logWithString:@"LOGIN SCREEN"];
+    //[appDelegate logWithString:@"LOGIN SCREEN"];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accountChanged:)name:ACAccountStoreDidChangeNotification object:nil];
 
@@ -268,7 +268,7 @@ static NSString* kAppId = @"164117317078099";
     }
     ////NSLog(@"result : %@",result);
     
-    [appDelegate logWithString:[NSString stringWithFormat:@"Facebook user detail :\n %@",result]];
+   // [appDelegate logWithString:[NSString stringWithFormat:@"Facebook user detail :\n %@",result]];
     
     // When we ask for user infor this will happen.
     if ([result isKindOfClass:[NSDictionary class]]){
@@ -323,7 +323,9 @@ static NSString* kAppId = @"164117317078099";
 //    [dateFormatter1 setDateFormat:@"DD-MMMM-yyyy HH:mm:ss"];
     
      // Get the date time in NSString
-     NSString *dateInString = [dateFormatter1 stringFromDate:currentDateTime];
+     //09NSString *dateInString = [dateFormatter1 stringFromDate:currentDateTime];
+    
+     NSString *dateInString = [appDelegate dateFromLatLong];
     
      // Release the dateFormatter
      [dateFormatter1 release];
@@ -395,7 +397,7 @@ static NSString* kAppId = @"164117317078099";
     
     //NSLog(@"jsonString user: %@",jsonString);
     
-    [appDelegate logWithString:[NSString stringWithFormat:@"REGISTER (http://itisonth.w13.wh-2.com/WS/register) > request : %@",jsonString]];
+    //[appDelegate logWithString:[NSString stringWithFormat:@"REGISTER (http://itisonth.w13.wh-2.com/WS/register) > request : %@",jsonString]];
     
     NSData* requestData =[jsonString dataUsingEncoding:NSUTF8StringEncoding] ; // [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:nil];
     
@@ -424,7 +426,7 @@ static NSString* kAppId = @"164117317078099";
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
     
     NSLog(@"%@",[error description]);
-    [appDelegate logWithString:[NSString stringWithFormat:@"REGISTER > request didFailWithError : %@",[error description]]];
+   // [appDelegate logWithString:[NSString stringWithFormat:@"REGISTER > request didFailWithError : %@",[error description]]];
     
 	//[connection release];
 	responseData = nil;
@@ -443,10 +445,9 @@ static NSString* kAppId = @"164117317078099";
     
     NSString *responseString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
     
-    
     NSMutableDictionary *temp=[responseString JSONValue];
     //NSLog(@"temp : %@",temp);
-    [appDelegate logWithString:[NSString stringWithFormat:@"REGISTER > response : %@",temp]];
+    //[appDelegate logWithString:[NSString stringWithFormat:@"REGISTER > response : %@",responseString]];
     
     if (temp) {
         
@@ -586,7 +587,7 @@ static NSString* kAppId = @"164117317078099";
         ACAccountType *FBaccountType= [self.accountStore accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook];
         
         NSString *key =@"164117317078099";
-        NSDictionary *dictFB = [NSDictionary dictionaryWithObjectsAndKeys:key,ACFacebookAppIdKey,@[@"email"],ACFacebookPermissionsKey, nil];
+        NSDictionary *dictFB = [NSDictionary dictionaryWithObjectsAndKeys:key,ACFacebookAppIdKey,@[@"email",@"user_location",@"user_hometown",@"user_birthday"],ACFacebookPermissionsKey, nil];
         
         
         [self.accountStore requestAccessToAccountsWithType:FBaccountType options:dictFB completion:
@@ -597,7 +598,7 @@ static NSString* kAppId = @"164117317078099";
                  self.facebookAccount = [accounts lastObject];
                  //NSLog(@"facebook account =%@",self.facebookAccount);
                  
-                 [appDelegate logWithString:@"Facebook account Authenticated"];
+                // [appDelegate logWithString:@"Facebook account Authenticated"];
                  
                  [self get];
              } else {
@@ -605,7 +606,7 @@ static NSString* kAppId = @"164117317078099";
                  //NSLog(@"error getting permission %@",e);
                  //AppDelegate *appDel=(AppDelegate*)[[UIApplication sharedApplication] delegate];
                  
-                 [appDelegate logWithString:@"Open Facebook dialog IOS > 6"];
+                // [appDelegate logWithString:@"Open Facebook dialog IOS > 6"];
                  
                  if ([appDelegate isNetWorkAvailable]) {
                      //  [self performSelector:@selector(facebookLogin) withObject:nil afterDelay:0.5];
@@ -626,7 +627,7 @@ static NSString* kAppId = @"164117317078099";
     {
         AppDelegate *appDel=(AppDelegate*)[[UIApplication sharedApplication] delegate];
         
-        [appDelegate logWithString:@"Open Facebook dialog IOS < 6"];
+      //  [appDelegate logWithString:@"Open Facebook dialog IOS < 6"];
         
         if ([appDel isNetWorkAvailable]) {
             [self performSelector:@selector(facebookLogin) withObject:nil afterDelay:0.5];
@@ -660,9 +661,9 @@ static NSString* kAppId = @"164117317078099";
         {
             list =[NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
             
-            ////NSLog(@"Dictionary contains: %@", list );
+            NSLog(@"Dictionary contains: %@", list );
             
-            [appDelegate logWithString:[NSString stringWithFormat:@"Facebook user detail :\n %@",list]];
+            //[appDelegate logWithString:[NSString stringWithFormat:@"Facebook user detail :\n %@",list]];
             
             
             if([list objectForKey:@"error"]!=nil)
@@ -721,11 +722,12 @@ static NSString* kAppId = @"164117317078099";
 //        [dateFormatter1 setDateFormat:@"yyyy/MM/dd HH:mm:ss"];
         
         // Get the date time in NSString
-              NSString *dateInString = @"2013-07-29 13:39:50"; // [appDelegate dateFromLatLong]; // [dateFormatter1 stringFromDate:currentDateTime];
+        //      NSString *dateInString = @"2013-07-29 13:39:50"; // [appDelegate dateFromLatLong]; // [dateFormatter1 stringFromDate:currentDateTime];
         
         // Release the dateFormatter
 //        [dateFormatter1 release];
 
+        NSString *dateInString = [appDelegate dateFromLatLong];
         
         [dic setValue:[list objectForKey:@"first_name"] forKey:@"Fname"];
         [dic setValue:[list objectForKey:@"last_name"] forKey:@"Lname"];

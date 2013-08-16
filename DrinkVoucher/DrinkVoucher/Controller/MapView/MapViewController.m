@@ -69,7 +69,7 @@
     //NSLog(@"%@",latitude);
     //NSLog(@"%@",longitude);
     AppDelegate *appDel=(AppDelegate*)[[UIApplication sharedApplication] delegate];
-    [appDel logWithString:@"MAP SCREEN"];
+   // [appDel logWithString:@"MAP SCREEN"];
     
     double miles = 0.62137;
     double scalingFactor = ABS( (cos(2 * M_PI * coordinate.latitude / 360.0) ));
@@ -121,6 +121,7 @@
     
     
 }
+
 -(IBAction)btnCurrentLocation:(id)sender
 {
     [mapView setZoomEnabled:YES];

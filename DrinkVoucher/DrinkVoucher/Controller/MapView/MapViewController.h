@@ -14,7 +14,6 @@
 	CLLocationCoordinate2D coordinate;
 	NSString *mTitle;
 	NSString *mSubTitle;
-    
 }
 
 @end

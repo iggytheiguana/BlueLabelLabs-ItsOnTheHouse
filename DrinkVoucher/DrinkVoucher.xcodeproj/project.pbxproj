@@ -141,7 +141,6 @@
 		507C30C3170BEBA800469119 /* FBLoginDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 507C30BB170BEBA800469119 /* FBLoginDialog.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		507C30C4170BEBA800469119 /* FBRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 507C30BD170BEBA800469119 /* FBRequest.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		50A3308517ABB02E00164108 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50A3308417ABB02E00164108 /* MessageUI.framework */; };
-		C5A1B50C17B028CA006E2C09 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5A1B50B17B028CA006E2C09 /* Crashlytics.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -315,7 +314,6 @@
 		507C30BC170BEBA800469119 /* FBRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBRequest.h; sourceTree = "<group>"; };
 		507C30BD170BEBA800469119 /* FBRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBRequest.m; sourceTree = "<group>"; };
 		50A3308417ABB02E00164108 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
-		C5A1B50B17B028CA006E2C09 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -335,7 +333,6 @@
 				491123A617054DD000777DD6 /* MapKit.framework in Frameworks */,
 				499A552E16F1CB7500B4C7DB /* Foundation.framework in Frameworks */,
 				499A553016F1CB7500B4C7DB /* CoreGraphics.framework in Frameworks */,
-				C5A1B50C17B028CA006E2C09 /* Crashlytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -400,7 +397,6 @@
 		499A552A16F1CB7500B4C7DB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C5A1B50B17B028CA006E2C09 /* Crashlytics.framework */,
 				499B3F321713F8F300DEB876 /* Accounts.framework */,
 				499B3F301713F28C00DEB876 /* Social.framework */,
 				4977671E170AAB170055D71E /* CFNetwork.framework */,
@@ -698,7 +694,6 @@
 				499A552316F1CB7500B4C7DB /* Sources */,
 				499A552416F1CB7500B4C7DB /* Frameworks */,
 				499A552516F1CB7500B4C7DB /* Resources */,
-				C5A1B50A17B0287D006E2C09 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -840,22 +835,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		C5A1B50A17B0287D006E2C09 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "./Crashlytics.framework/run b53fcf08df9b183b382153735d57a10862fc5348";
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		499A552316F1CB7500B4C7DB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -930,6 +909,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "7CB4C31C-32FA-4C70-88EB-72C713541275";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7CB4C31C-32FA-4C70-88EB-72C713541275";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -952,6 +933,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "7CB4C31C-32FA-4C70-88EB-72C713541275";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7CB4C31C-32FA-4C70-88EB-72C713541275";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -962,15 +945,13 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Distribution: On the House LLC (93MJFY2EQH)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: On the House LLC (93MJFY2EQH)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)\"",
-				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DrinkVoucher/DrinkVoucher-Prefix.pch";
 				INFOPLIST_FILE = "DrinkVoucher/DrinkVoucher-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "7CB4C31C-32FA-4C70-88EB-72C713541275";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7CB4C31C-32FA-4C70-88EB-72C713541275";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -980,15 +961,13 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Distribution: On the House LLC (93MJFY2EQH)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: On the House LLC (93MJFY2EQH)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)\"",
-				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DrinkVoucher/DrinkVoucher-Prefix.pch";
 				INFOPLIST_FILE = "DrinkVoucher/DrinkVoucher-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "7CB4C31C-32FA-4C70-88EB-72C713541275";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "7CB4C31C-32FA-4C70-88EB-72C713541275";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

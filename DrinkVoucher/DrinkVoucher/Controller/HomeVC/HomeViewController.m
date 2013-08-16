@@ -29,7 +29,7 @@
 
 #pragma mark - NSDate Component
 
--(NSDateComponents *)componenetFromDate:(NSString *)strDate
+-(NSDateComponents *)componenetFromDate:(NSString *)strDate 
 {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"MM/dd/yyyy HH:mm:ss"];
@@ -75,7 +75,7 @@
     
     if ([strStatus isEqualToString:@"New"])
     {
-        [appDelegate logWithString:@"New Voucher"];
+        //[appDelegate logWithString:@"New Voucher"];
         
         [btnGetdrink setTitle:@"drinking_button" forState:UIControlStateDisabled];
         [btnGetdrink setImage:[UIImage imageNamed:@"ge_drinksontheHouse.png"] forState:UIControlStateNormal];
@@ -86,7 +86,7 @@
     }
     else if ([strStatus isEqualToString:@"Current"])
     {
-        [appDelegate logWithString:@"Current Voucher"];
+        //[appDelegate logWithString:@"Current Voucher"];
         
         if (appDelegate.isCurrentVoucherActive == 1) {
             
@@ -133,7 +133,7 @@
             
         }else{
             
-            [appDelegate logWithString:@"New Voucher >> previous unused voucher is expired"];
+            //[appDelegate logWithString:@"New Voucher >> previous unused voucher is expired"];
             
             [btnGetdrink setTitle:@"drinking_button" forState:UIControlStateDisabled];
             [btnGetdrink setImage:[UIImage imageNamed:@"ge_drinksontheHouse.png"] forState:UIControlStateNormal];
@@ -144,7 +144,7 @@
     }
     else if ([strStatus isEqualToString:@"Redeemed"])
     {
-        [appDelegate logWithString:@"Redeemed Voucher"];
+       // [appDelegate logWithString:@"Redeemed Voucher"];
         
         self.lblRedeemedDate.hidden=NO;
         
@@ -183,7 +183,7 @@
     
     appDelegate=(AppDelegate *)[[UIApplication sharedApplication] delegate];
     
-    [appDelegate logWithString:@"HOME SCREEN"];
+   // [appDelegate logWithString:@"HOME SCREEN"];
     
     if ([[UIScreen mainScreen] bounds].size.height == 568) { 
         [imgBack setImage:[UIImage imageNamed:@"getdriking_screen_new_5.png"]];
@@ -212,14 +212,43 @@
 -(IBAction)btnGetaFreedrink:(id)sender
 {
     [locationManager startUpdatingLocation];
-    
+
     NSString *strTitle=[btnGetdrink titleForState:UIControlStateDisabled];
+    
+    AppDelegate *appDel=(AppDelegate*)[[UIApplication sharedApplication] delegate];
     
     if ([strTitle isEqualToString:@"voucherredeemed_button"])
     {
-        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"On the House" message:@"You have already used today’s voucher. Come back tomorrow for a new voucher." delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [alert show];
-        [alert release];
+        
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        
+        if ( ![fileManager fileExistsAtPath:[self documentPath]] ) {
+            
+            //NSLog(@"plist not exist");
+            
+        } else
+        {
+            /* File exists at path. Resolve and save */
+            
+            [self.dictPlist removeAllObjects];
+            
+            ////NSLog(@"plist arr==%@",[NSMutableDictionary dictionaryWithContentsOfFile:[self documentPath]]);
+            
+            self.dictPlist= [NSMutableDictionary dictionaryWithContentsOfFile:[self documentPath]];
+            
+            ////NSLog(@"1. self.dictplist : %@",self.dictPlist);
+        }
+        
+        
+        appDel.dictBardetail=dictPlist;
+        
+        BarDetailViewController *obj_batDetailUpdate=[[BarDetailViewController alloc] initWithNibName:@"BarDetailViewController" bundle:nil];
+        [self.navigationController pushViewController:obj_batDetailUpdate animated:YES];
+        [obj_batDetailUpdate release];
+        
+//        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"On the House" message:@"You have already used today’s voucher. Come back tomorrow for a new voucher." delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+//        [alert show];
+//        [alert release];
         return;
     }
     
@@ -265,7 +294,7 @@
                   ////NSLog(@"1. self.dictplist : %@",self.dictPlist);
             }
          
-        AppDelegate *appDel=(AppDelegate*)[[UIApplication sharedApplication] delegate];
+        
         appDel.dictBardetail=dictPlist;
          
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -314,6 +343,13 @@
         //  [dic setValue:@"2013/03/30 18:54:12" forKey:@"Date"];
         [dic setValue:dateInString forKey:@"Date"];
         
+        
+//        [dic setValue:@"34" forKey:@"userId"];
+//        [dic setValue:@"47.616340" forKey:@"user_lat"];
+//        [dic setValue:@"-122.349383" forKey:@"user_long"];
+//        //  [dic setValue:@"2013/03/30 18:54:12" forKey:@"Date"];
+//        [dic setValue:@"2013-08-13 10:02:24" forKey:@"Date"];
+        
         if ([appDel isNetWorkAvailable])
         {
             [self execMethod:dic];
@@ -325,12 +361,10 @@
             UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"On the House" message:@"Please check your internet connection and try again." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [alert show];
             [alert release];
-            
         }
-
     }
-        
 }
+
 #pragma mark -
 #pragma mark Location Manager delegate
 
@@ -351,7 +385,7 @@
 }
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
-    UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"On the House" message:@"On the House needs your location to send you a free drink for a bar or restaurant in your area. Please enable location services for On the House in your iPhone settings." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"On the House" message:@"On the House needs your location to find great bars and restaurants nearby. Please enable location services for On the House in your iPhone settings." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
     [alert release];
 }
@@ -360,7 +394,7 @@
 
 -(void) execMethod:(NSMutableDictionary *)dic{
     
-   [appDelegate logWithString:[NSString stringWithFormat:@"User Lat : %@ \n User Long : %@",self.currentLatitude,self.currentLongitude]];
+  // [appDelegate logWithString:[NSString stringWithFormat:@"User Lat : %@ \n User Long : %@",self.currentLatitude,self.currentLongitude]];
     
     NSURL * url = [NSURL URLWithString:GETBARDETAIL];
     
@@ -369,7 +403,7 @@
 
     NSString *jsonString = [dic JSONRepresentation];
     
-    [appDelegate logWithString:[NSString stringWithFormat:@"GETBARDETAIL (http://itisonth.w13.wh-2.com/WS/GetBarDetail) > request : %@",jsonString]];
+   // [appDelegate logWithString:[NSString stringWithFormat:@"GETBARDETAIL (http://itisonth.w13.wh-2.com/WS/GetBarDetail) > request : %@",jsonString]];
     
     //NSLog(@"jsonString : %@",jsonString);
     
@@ -390,7 +424,7 @@
 }
 -(void) execMethodUpdate:(NSMutableDictionary *)dic{
     
-    [appDelegate logWithString:[NSString stringWithFormat:@"User Lat : %@ \n User Long : %@",self.currentLatitude,self.currentLongitude]];
+ //   [appDelegate logWithString:[NSString stringWithFormat:@"User Lat : %@ \n User Long : %@",self.currentLatitude,self.currentLongitude]];
     
     NSURL * url = [NSURL URLWithString:UPDATE_DATESEEN_VOUCHER];
     
@@ -399,7 +433,7 @@
     NSString *jsonString = [dic JSONRepresentation];
     
     //NSLog(@"jsonString : %@",jsonString);
-    [appDelegate logWithString:[NSString stringWithFormat:@"UPDATE_DATESEEN_VOUCHER (http://itisonth.w13.wh-2.com/WS/updateDateseen_voucher) > request : %@",jsonString]];
+    //[appDelegate logWithString:[NSString stringWithFormat:@"UPDATE_DATESEEN_VOUCHER (http://itisonth.w13.wh-2.com/WS/updateDateseen_voucher) > request : %@",jsonString]];
     
     NSData* requestData =[jsonString dataUsingEncoding:NSUTF8StringEncoding] ; // [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:nil];
     
@@ -432,7 +466,7 @@
     //NSLog(@"error==%@",[error description]);
 	//[connection release];
     
-    [appDelegate logWithString:[NSString stringWithFormat:@"request didFailWithError : %@",[error description]]];
+    //[appDelegate logWithString:[NSString stringWithFormat:@"request didFailWithError : %@",[error description]]];
     
 	responseData = nil;
     
@@ -455,7 +489,7 @@
         //NSLog(@"Update ssen voucher call");
         MethodUpdateCall=NO;
         
-        [appDelegate logWithString:@"UPDATE_DATESEEN_VOUCHER > sucess"];
+        //[appDelegate logWithString:@"UPDATE_DATESEEN_VOUCHER > sucess"];
         
         BarDetailViewController *obj_batDetailUpdate=[[BarDetailViewController alloc] initWithNibName:@"BarDetailViewController" bundle:nil];
         [self.navigationController pushViewController:obj_batDetailUpdate animated:YES];
@@ -466,48 +500,56 @@
     }
     
     NSString *responseString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-    
+    //[appDelegate logWithString:[NSString stringWithFormat:@"GETBARDETAIL response : %@",responseString]];
     NSMutableDictionary *tempDic =[responseString JSONValue];
     //NSLog(@"tempDic %@",tempDic);
-    [responseString release];
+    //[responseString release];
     
-    [appDelegate logWithString:[NSString stringWithFormat:@"GETBARDETAIL response : %@",tempDic]];
-    
-    NSString *strBarId=[NSString stringWithFormat:@"%@",[tempDic objectForKey:@"bar_id"]];
-    if ([strBarId isEqualToString:@"0"])
-    {
-        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"On the House" message:@"Sorry! We do not have any bars in your area or none are currently open. Please try again at a later time or ask your favorite bar nearby to get On the House!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+    if (tempDic) {
+        
+        NSString *strBarId=[NSString stringWithFormat:@"%@",[tempDic objectForKey:@"bar_id"]];
+        if ([strBarId isEqualToString:@"0"])
+        {
+            UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"On the House" message:@"Unfortunately we do not have any bars in your area or none are currently offering deals at this time. Please try again at a later time or ask your favorite bar nearby to get On the House!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [alert show];
+            [alert release];
+            return;
+        }
+        
+        appDel.dictBardetail=tempDic;
+        
+        [[NSUserDefaults standardUserDefaults] setObject:@"Current" forKey:@"Status"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        //set value to plist
+        [tempDic writeToFile:[self documentPath] atomically:YES];
+        
+        BarDetailViewController *obj_batDetail=[[BarDetailViewController alloc] initWithNibName:@"BarDetailViewController" bundle:nil];
+        [self.navigationController pushViewController:obj_batDetail animated:YES];
+        [obj_batDetail release];
+        
+        
+        NSDate * now = [NSDate date];
+        NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
+        //[outputFormatter setDateFormat:@"MM/dd/yyyy HH:mm:ss"];
+        [outputFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+        NSString *newDateString = [outputFormatter stringFromDate:now];
+        //NSLog(@"curreny time==%@", newDateString);
+        
+        [[NSUserDefaults standardUserDefaults] setObject:newDateString forKey:@"redeemedTime"];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"userGetredeemed"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        responseData = nil;
+        
+    }else{
+        
+        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"On the House" message:@"Unfortunately we do not have any bars in your area or none are currently offering deals at this time. Please try again at a later time or ask your favorite bar nearby to get On the House!" delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
         [alert show];
         [alert release];
         return;
     }
-    appDel.dictBardetail=tempDic;
     
-    [[NSUserDefaults standardUserDefaults] setObject:@"Current" forKey:@"Status"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    //set value to plist
-    [tempDic writeToFile:[self documentPath] atomically:YES];
-    
-    BarDetailViewController *obj_batDetail=[[BarDetailViewController alloc] initWithNibName:@"BarDetailViewController" bundle:nil];
-    [self.navigationController pushViewController:obj_batDetail animated:YES];
-    [obj_batDetail release];
-    
-    
-    NSDate * now = [NSDate date];
-    NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
-    //[outputFormatter setDateFormat:@"MM/dd/yyyy HH:mm:ss"];
-    [outputFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    NSString *newDateString = [outputFormatter stringFromDate:now];
-    //NSLog(@"curreny time==%@", newDateString);
-    
-    [[NSUserDefaults standardUserDefaults] setObject:newDateString forKey:@"redeemedTime"];
-    
-    
-    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"userGetredeemed"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    responseData = nil;
 }
 
 -(NSString *)documentPath

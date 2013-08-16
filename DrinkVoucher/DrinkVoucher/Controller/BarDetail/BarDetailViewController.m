@@ -104,17 +104,19 @@
     lblTimer.hidden=YES;
     imgChkbox.hidden=YES;
     
-    self.lblRedeemedDate.hidden=YES;
+   
     
      NSString *strStatus=[[NSUserDefaults standardUserDefaults] valueForKey:@"Status"];
     
     if ([strStatus isEqualToString:@"New"])
     {
+         self.lblRedeemedDate.hidden=YES;
         [btnDealAction setTitle:@"redeemyourvocher_button" forState:UIControlStateDisabled];
         [btnDealAction setImage:[UIImage imageNamed:@"redeemyourvocher_button.png"] forState:UIControlStateNormal];
     }
     else if ([strStatus isEqualToString:@"Current"])
     {
+         self.lblRedeemedDate.hidden=YES;
         [btnDealAction setTitle:@"redeemyourvocher_button" forState:UIControlStateDisabled];
         [btnDealAction setImage:[UIImage imageNamed:@"redeemyourvocher_button.png"] forState:UIControlStateNormal];
     }
@@ -122,6 +124,19 @@
     {
         [btnDealAction setTitle:@"voucherredeemed_button" forState:UIControlStateDisabled];
         [btnDealAction setImage:[UIImage imageNamed:@"voucherredeemed_button_new.png"] forState:UIControlStateNormal];
+        
+        self.lblRedeemedDate.hidden=NO;
+        
+        if (IS_IPHONE_5) {
+            
+            self.lblRedeemedDate.frame=CGRectMake(113, 295, 156,18);
+        }else{
+            
+            self.lblRedeemedDate.frame=CGRectMake(113, 240, 156,18);
+        }
+        
+        self.lblRedeemedDate.text=[[NSUserDefaults standardUserDefaults] objectForKey:@"UserRedeemedTime"];;
+        
     }
     
     
@@ -132,13 +147,13 @@
     [locationManager startUpdatingLocation];
 
     
-    NSURL *imageURL=[[NSURL alloc] initWithString:[appDel.dictBardetail objectForKey:@"bar_image_url"]];
+    NSURL *imageURL=[[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@",[appDel.dictBardetail objectForKey:@"bar_image_url"]]];
     [self.imgBar setImageWithURL:imageURL  placeholderImage:nil options:SDWebImageProgressiveDownload];
     
-    lblbarName.text=[appDel.dictBardetail objectForKey:@"bar_name"];
+    lblbarName.text=[NSString stringWithFormat:@"%@",[appDel.dictBardetail objectForKey:@"bar_name"]];
     lblbarAddress.text=[[appDel.dictBardetail objectForKey:@"bar_address"] objectForKey:@"street"];
    
-    lblCityState.text=[NSString stringWithFormat:@"%@ %@ %@",[[appDel.dictBardetail objectForKey:@"bar_address"] objectForKey:@"city"],[[appDel.dictBardetail objectForKey:@"bar_address"] objectForKey:@"state"],[[appDel.dictBardetail objectForKey:@"bar_address"] objectForKey:@"zip_code"]];
+    lblCityState.text=[NSString stringWithFormat:@"%@, %@ %@",[[appDel.dictBardetail objectForKey:@"bar_address"] objectForKey:@"city"],[[appDel.dictBardetail objectForKey:@"bar_address"] objectForKey:@"state"],[[appDel.dictBardetail objectForKey:@"bar_address"] objectForKey:@"zip_code"]];
   
     
     if (IS_IPHONE_5) {
@@ -324,7 +339,7 @@
     appDel=(AppDelegate*)[[UIApplication sharedApplication] delegate];
     ////NSLog(@"Bar detail==%@",appDel.dictBardetail);
     
-    [appDel logWithString:@"BAR DETAIL SCREEN"];
+   // [appDel logWithString:@"BAR DETAIL SCREEN"];
     
     // Configure the new event with information from the location
    
@@ -441,7 +456,7 @@
     
     //NSLog(@"jsonString : %@",jsonString);
     
-    [appDel logWithString:[NSString stringWithFormat:@"REDEEM_VOUCHER (http://itisonth.w13.wh-2.com/WS/redeem_voucher) > request : %@",jsonString]];
+   // [appDel logWithString:[NSString stringWithFormat:@"REDEEM_VOUCHER (http://itisonth.w13.wh-2.com/WS/redeem_voucher) > request : %@",jsonString]];
     
     NSData* requestData =[jsonString dataUsingEncoding:NSUTF8StringEncoding] ; // [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:nil];
     
@@ -471,7 +486,7 @@
     //NSLog(@"error==%@",[error description]);
 	responseData = nil;
     
-    [appDel logWithString:[NSString stringWithFormat:@"REDEEM_VOUCHER > request didFailWithError : %@",[error description]]];
+    //[appDel logWithString:[NSString stringWithFormat:@"REDEEM_VOUCHER > request didFailWithError : %@",[error description]]];
     
     UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"On the House" message:@"The request timed out. Please try again later." delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
     [alert show];
@@ -484,42 +499,44 @@
     NSMutableDictionary *tempDic =[responseString JSONValue];
     //NSLog(@"tempdict==%@",tempDic);
     
-    [appDel logWithString:[NSString stringWithFormat:@"REDEEM_VOUCHER > response : %@",tempDic]];
-    
-    if ([[tempDic objectForKey:@"status"] isEqualToString:@"Success"])
-    {
-        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"On the House" message:@"Successfully redeemed." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
+    if (tempDic) {
         
-        NSDate * now = [NSDate date];
-        NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
-        [outputFormatter setDateFormat:@"MM/dd/yyyy hh:mm a"];
-        NSString *newDateString = [outputFormatter stringFromDate:now];
-        //NSLog(@"curreny time==%@", newDateString);
-
+       // [appDel logWithString:[NSString stringWithFormat:@"REDEEM_VOUCHER > response : %@",responseString]];
         
-        self.lblRedeemedDate.hidden=NO;
-        
-        if (IS_IPHONE_5) {
+        if ([[tempDic objectForKey:@"status"] isEqualToString:@"Success"])
+        {
+            UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"On the House" message:@"Successfully redeemed." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
             
-            self.lblRedeemedDate.frame=CGRectMake(113, 295, 156,18);
-        }else{
+            NSDate * now = [NSDate date];
+            NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
+            [outputFormatter setDateFormat:@"MM/dd/yyyy hh:mm a"];
+            NSString *newDateString = [outputFormatter stringFromDate:now];
+            //NSLog(@"curreny time==%@", newDateString);
             
-            self.lblRedeemedDate.frame=CGRectMake(113, 240, 156,18);
+            
+            self.lblRedeemedDate.hidden=NO;
+            
+            if (IS_IPHONE_5) {
+                
+                self.lblRedeemedDate.frame=CGRectMake(113, 295, 156,18);
+            }else{
+                
+                self.lblRedeemedDate.frame=CGRectMake(113, 240, 156,18);
+            }
+            
+            self.lblRedeemedDate.text=newDateString;
+            
+            [[NSUserDefaults standardUserDefaults] setObject:@"Redeemed" forKey:@"Status"];
+            [[NSUserDefaults standardUserDefaults] setObject:newDateString forKey:@"UserRedeemedTime"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            //   [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"userGetredeemed"];
         }
-        
-        self.lblRedeemedDate.text=newDateString;
-        
-        [[NSUserDefaults standardUserDefaults] setObject:@"Redeemed" forKey:@"Status"];
-        [[NSUserDefaults standardUserDefaults] setObject:newDateString forKey:@"UserRedeemedTime"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-     //   [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"userGetredeemed"];
-        
-        
     }
 
 	responseData = nil;
 }
+
 -(void)timePlus{
     
     ////NSLog(@"timePlus");
