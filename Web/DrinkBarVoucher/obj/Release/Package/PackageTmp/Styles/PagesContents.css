@@ -1,0 +1,361 @@
+﻿body
+{
+    margin: 0px;
+    padding: 0px;
+    font-family: Arial,Microsoft Sans Serif,Verdana;
+    font-size: 12pt;
+}
+
+.dvHeader
+{
+    height: 43px;
+    float: left;
+    width: 100%;
+    border-bottom: 1px solid #800000;
+}
+.dvAction
+{
+    height: 80px;
+    width: 100%;
+}
+/*
+TextBox
+*/
+input[type='text']
+{
+    padding: 5px;
+    height: 20px;
+    margin: 5px;
+    border: 1px solid #C9C9C9;
+    font-family: Arial,Microsoft Sans Serif,Verdana;
+    font-size: 12pt;
+}
+
+input[type='password']
+{
+    padding: 5px;
+    height: 20px;
+    margin: 5px;
+    border: 1px solid #C9C9C9;
+    font-size: 12pt;
+}
+.txt
+{
+    color: #515151;
+    font-family: Arial,Microsoft Sans Serif,Verdana;
+    font-size: 12pt;
+    margin-right: 20px !important;
+    padding-right: 20px;
+}
+.txtGray
+{
+    color: #515151;
+    font-family: Arial,Microsoft Sans Serif,Verdana;
+    font-size: 12pt;
+    margin-right: 20px !important;
+    padding-right: 20px;
+}
+/*Text Area*/
+textarea
+{
+    padding: 5px;
+    height: 70px;
+    margin: 5px;
+    border: 1px solid #C9C9C9;
+    font-family: Arial,Microsoft Sans Serif,Verdana;
+    font-size: 12pt;
+}
+/*
+CheckBox
+*/
+input[type='checkbox']
+{
+}
+/*
+Button 
+*/
+.btnSubmit
+{
+    padding: 6px;
+    height: 40px;
+    font-family: Arial,Microsoft Sans Serif,Verdana;
+    font-size: 12pt;
+    border: 1px solid #515151;
+    color: #515151;
+    font-weight: bold;
+   
+}
+
+.btnSubmit:hover
+{
+    padding: 6px;
+    height: 40px;
+    font-family: Arial,Microsoft Sans Serif,Verdana;
+    font-size: 12pt;
+    border: 1px solid #515151;
+    color: #555555;
+    font-weight: bold;
+    background: #C9C9C9;
+}
+.btnClose
+{
+    font-weight: bold;
+    color: #515151;
+    width: 20px;
+    height: 20px;
+    border: 0px none;
+    cursor: pointer;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 13pt;
+}
+.btnClose:hover
+{
+    text-decoration: underline;
+    cursor: pointer;
+}
+.btnInactive
+{
+    height: 35px;
+    font-family: Arial,Microsoft Sans Serif,Verdana;
+    font-size: 13pt;
+    border: 1px solid #515151;
+    color: #515151;
+    font-weight: bold;
+    width: 137px;
+    cursor: pointer;
+    background: #A9A9A9;
+}
+
+.btnActive
+{
+    height: 35px;
+    font-family: Arial,Microsoft Sans Serif,Verdana;
+    font-size: 13pt;
+    border: 1px solid #515151;
+    color: #C9C9C9;
+    font-weight: bold;
+    width: 137px;
+    cursor: pointer;
+    background: #800000;
+}
+
+.btnDay
+{
+    height: 35px;
+    font-family: Arial,Microsoft Sans Serif,Verdana;
+    font-size: 13pt;
+    border: 1px solid #515151;
+    color: #515151;
+    font-weight: bold;
+    width: 40px;
+    cursor: pointer;
+    background: #A9A9A9;
+}
+
+.btnDayActive
+{
+    height: 35px;
+    font-family: Arial,Microsoft Sans Serif,Verdana;
+    font-size: 13pt;
+    border: 1px solid #515151;
+    color: #C9C9C9;
+    font-weight: bold;
+    width: 40px;
+    cursor: pointer;
+    background: #800000;
+}
+/*
+Dropdown
+*/
+
+select
+{
+    padding: 5px;
+    height: 32px;
+    margin: 5px;
+    border: 1px solid #C9C9C9 !important;
+    font-family: Arial,Microsoft Sans Serif,Verdana;
+    font-size: 11pt;
+}
+
+.ddlWidth
+{
+    width: 273px;
+}
+/*
+DifferentSize of TextBox
+*/
+.txtLargest
+{
+    width: 260px;
+}
+
+.txtLarge
+{
+    width: 200px;
+}
+
+.txtMedium
+{
+    width: 150px;
+}
+
+.txtSmall
+{
+    width: 100px;
+}
+/*
+table related
+*/
+.tdfontBold
+{
+    font-weight: bold;
+    font-size: 14pt;
+    padding-left: 20px;
+}
+
+.tdPadd35
+{
+    padding-left: 35px;
+    font-weight: bold;
+}
+/*
+Grid View Style  
+*/
+.gvDrinkVoucher
+{
+    font-family: Arial,Microsoft Sans Serif,Verdana;
+    font-size: 12pt;
+    width: 99%;
+    margin: 5px;
+}
+
+.gvDrinkVoucher tbody tr th
+{
+    border: 1px solid #C9C9C9;
+    border-collapse: collapse;
+    padding: 5px;
+    background: #F0F0F0;
+    height: 20px;
+    font-size: 12pt;
+}
+.gvDrinkVoucher tbody tr th:hover
+{
+    padding: 5px;
+    background: #C9C9C9;
+    height: 20px;
+    font-size: 12pt;
+}
+
+.gvDrinkVoucher tbody tr th a
+{
+    text-decoration: none;
+    color: #515151;
+    font-size: 12pt;
+    text-align: left;
+    padding-right: 5px;
+}
+
+
+.gvDrinkVoucher tbody tr th a:hover
+{
+    text-decoration: underline;
+    color: #515151;
+    font-size: 12pt;
+    text-align: left;
+    padding-right: 5px;
+}
+
+
+.gvDrinkVoucher tbody tr td
+{
+    border: 1px solid #C9C9C9;
+    border-collapse: collapse;
+    padding: 5px;
+    height: 20px;
+}
+
+span
+{
+    font-family: Arial,Microsoft Sans Serif,Verdana;
+    font-size: 12pt;
+}
+
+.lnkBtn
+{
+    text-decoration: none;
+    font-family: Arial,Microsoft Sans Serif,Verdana;
+    font-size: 11pt;
+    color: #555555;
+}
+
+.lnkBtn:hover
+{
+    text-decoration: none;
+    font-family: Arial,Microsoft Sans Serif,Verdana;
+    font-size: 11pt;
+    color: #555555;
+    cursor: pointer;
+}
+
+/*
+paging
+*/
+
+.PagingTable
+{
+    border-left: 1px solid #C9C9C9;
+    border-bottom: 1px solid #C9C9C9;
+    border-right: 1px solid #C9C9C9;
+    margin-left: 5px;
+    margin-top: -5px;
+    border-collapse: collapse;
+    font-weight: bold;
+}
+
+.PagingTable tbody tr td a
+{
+    text-decoration: none;
+    font-family: Arial,Microsoft Sans Serif,Verdana;
+    font-size: 13pt;
+    color: #515151;
+    padding: 10px;
+}
+
+.PagingTable tbody tr td a:hover
+{
+    text-decoration: none;
+    font-family: Arial,Microsoft Sans Serif,Verdana;
+    font-size: 13pt;
+    color: #9A9A9A;
+    padding: 10px;
+}
+
+.PagingTable tbody tr td a.active
+{
+    text-decoration: none;
+    font-family: Arial,Microsoft Sans Serif,Verdana;
+    font-size: 13pt;
+    color: #515151;
+    padding: 10px;
+}
+
+.PagingTable tbody tr td a.active:hover
+{
+    text-decoration: none;
+    font-family: Arial,Microsoft Sans Serif,Verdana;
+    font-size: 13pt;
+    color: #9A9A9A;
+    padding: 10px;
+}
+
+
+.PagingTable tbody tr td a.inactive
+{
+    text-decoration: none;
+    font-family: Arial,Microsoft Sans Serif,Verdana;
+    font-size: 13pt;
+    color: #9A9A9A;
+    padding: 10px;
+}
