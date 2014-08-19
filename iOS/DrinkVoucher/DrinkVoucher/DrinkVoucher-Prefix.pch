@@ -1,0 +1,32 @@
+//
+// Prefix header for all source files of the 'DrinkVoucher' target in the 'DrinkVoucher' project
+//
+
+#import <Availability.h>
+
+#ifndef __IPHONE_4_0
+#warning "This project uses features only available in iOS SDK 4.0 and later."
+#endif
+
+#ifdef __OBJC__
+    #import <UIKit/UIKit.h>
+    #import <Foundation/Foundation.h>
+#endif
+
+#define IS_IPHONE_5 ( fabs( ( double )[[UIScreen mainScreen ] bounds].size.height - ( double )568 ) < DBL_EPSILON )
+
+/*
+#define REGISTER @"http://183.182.91.146/svcDrinkVoucher/WCF/register"
+#define VOUCHER_ACTIVE @"http://183.182.91.146/svcDrinkVoucher/WCF/IsVocherActive" 
+#define REDEEM_VOUCHER @"http://183.182.91.146/svcDrinkVoucher/WCF/redeem_voucher" 
+#define GETBARDETAIL @"http://183.182.91.146/svcDrinkVoucher/WCF/GetBarDetail" 
+#define UPDATE_DATESEEN_VOUCHER @"http://183.182.91.146/svcDrinkVoucher/WCF/updateDateseen_voucher" 
+
+/*/
+
+#define REGISTER @"http://itisonth.w13.wh-2.com/WS/register"
+#define VOUCHER_ACTIVE @"http://itisonth.w13.wh-2.com/WS/IsVocherActive"
+#define REDEEM_VOUCHER @"http://itisonth.w13.wh-2.com/WS/redeem_voucher"
+#define GETBARDETAIL @"http://itisonth.w13.wh-2.com/WS/GetBarDetail"
+#define UPDATE_DATESEEN_VOUCHER @"http://itisonth.w13.wh-2.com/WS/updateDateseen_voucher"
+//*/
